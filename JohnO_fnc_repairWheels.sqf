@@ -9,7 +9,7 @@
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
  */
  
-private["_vehicle","_availableHitpoints","_fixable","_equippedMagazines","_wheels","_brokenWheels","_randomWheel","_repairable"];
+private["_vehicle","_availableHitpoints","_fixable","_equippedMagazines","_wheels","_brokenWheels","_randomWheel","_repairable","_wheelToRepair"];
 _vehicle = _this select 0;
 /*if (ExileClientPlayerIsInCombat) exitWith
 {
@@ -33,9 +33,14 @@ _broken = [];
 {
 	if ((_vehicle getHitPointDamage _x) > 0) then
 	{	
-		_broken = _broken + [_x]; 
+		_damage = _vehicle getHitPointDamage _x;
+		_broken = _broken + [[_damage,_x]]; 
 	};
 } forEach _wheels;
+
+_broken sort false;
+
+_wheelToRepair = (_broken select 0) select 1;
 
 if (isNil "_broken") exitWith
 {
@@ -52,7 +57,7 @@ if (!local _vehicle) then
 else 
 {
 	_equippedMagazines = magazines player;
-	_randomWheel = _broken call BIS_fnc_selectRandom;
+	
 	if ("Exile_Item_Foolbox" in _equippedMagazines) then
 	{	
 		if ("Exile_Item_Wrench" in _equippedMagazines) then
@@ -62,9 +67,8 @@ else
 			{				
 				player playMove "AinvPknlMstpSnonWnonDr_medic3";		
 				sleep 10;
-				_vehicle setHitPointDamage [_randomWheel,0];
-				player removeItem "Exile_Item_DuctTape";
-				player removeItem "Exile_Item_JunkMetal";
+				_vehicle setHitPointDamage [_wheelToRepair,0];
+				player removeItem "Exile_Item_CarWheel";
 				["Success",["You have repaired a wheel"]] call ExileClient_gui_notification_event_addNotification;
 			}
 			else
@@ -85,65 +89,37 @@ else
 	
 };
 true
-
 /*
- 
-_availableHitpoints = (getAllHitPointsDamage bob) select 0;
 _wheels = ["HitLF2Wheel","HitLFWheel","HitRFWheel","HitRF2Wheel"]; 
 _broken = [];
-
 {
 	if ((bob getHitPointDamage _x) > 0) then
 	{	
-		_broken = _broken + [_x]; 
+		_damage = bob getHitPointDamage _x;
+		_broken = _broken + [[_damage,_x]]; 
 	};
-} forEach _wheels;	
-if (isNil "_broken") then
-{
-	hint "good";
-};
-_randomWheel = _broken call BIS_fnc_selectRandom;
-
-bob setHitPointDamage [_randomWheel,0];
-
-
-{
-	if((bob getHitPointDamage _x) > 0) then
-	{
-		_repairable = _repairable - _x;
-	};
-} forEach _repairable; 
-hint str _repairable;
-
-
-
-_availableHitpoints = (getAllHitPointsDamage bob) select 0;
-{
-	if((bob getHitPointDamage _x) > 0)exitWith
-	{
-		_fixable = "potato";
-	};
-}
-forEach _availableHitpoints;
-_repairable = [];
-_brokenWheels = [];
-if (bob isKindOf "car") then
-{	
-	_wheels = ["HitLF2Wheel","HitLFWheel","HitRFWheel","HitRF2Wheel"];
-	_repairable = _wheels -_availableHitpoints;
-};
-hint str _repairable;
-
-{
-	if((bob getHitPointDamage _x) > 0)
-	{
-		_brokenWheels pushBack _x;
-	};
-} forEach _repairable;
-
-
-_wheels = ["HitLF2Wheel","HitLFWheel","HitRFWheel","HitRF2Wheel"];
-{
-	_availableHitpoints = bob getHitPointDamage _x;
 } forEach _wheels;
-hint str _availableHitpoints
+
+_broken sort false;
+
+_wheelToRepair = (_broken select 0) select 1;
+bob setHitPointDamage [_wheelToRepair,0];
+
+bob setHitPointDamage 
+
+hint str _broken;
+
+hint str _broken
+
+_damagedWheels = [];
+
+{
+	if (bob getHitPointDamage _x) then
+	
+	
+} forEach _broken;
+
+_damagedWheels sort false;
+
+hint str _damagedWheels;
+_wheels = ["HitLF2Wheel","HitLFWheel","HitRFWheel","HitRF2Wheel"];   _broken = [];  {   if ((bob getHitPointDamage _x) > 0) then   {     _damage = bob getHitPointDamage _x;    _broken = _broken + [[_x,_damage]];    };  } forEach _wheels;  hint str _broken
