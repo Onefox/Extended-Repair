@@ -26,13 +26,13 @@ You will need to added this to your loot table / trades.
 
 #Install instructions
 
-1.Place the two files inside your mission file.
+Place the two files inside your mission file.
 
-2. Inside your initPlayerLocal.sqf add this to the bottom -
+Inside your initPlayerLocal.sqf add this to the bottom -
 
 JohnO_fnc_repairWheels = compileFinal preprocessFileLineNumbers "JohnO_fnc_repairWheels.sqf";
 
-3. Inside your mission config.cpp find -
+Inside your mission config.cpp find -
 
 			class Repair: ExileAbstractAction
 			{
@@ -67,4 +67,4 @@ JohnO_fnc_repairWheels = compileFinal preprocessFileLineNumbers "JohnO_fnc_repai
 			
 			Optional -- Change the title of "Repair" to "Repair body" as you can see in the above example.
 			
-4. Profit
+Profit
