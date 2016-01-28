@@ -67,4 +67,22 @@ Inside your mission config.cpp find -
 			
 			Optional -- Change the title of "Repair" to "Repair body" as you can see in the above example.
 			
+Inside your mission config find
+
+			class CfgExileCustomCode 
+			{
+			
+			ADD UNDERNEITH
+			
+			ExileClient_object_vehicle_repair = "ExileClient_object_vehicle_repair.sqf";
+			
+			SO IT LOOKS LIKE
+			
+			class CfgExileCustomCode 
+			{
+			
+			ExileClient_object_vehicle_repair = "ExileClient_object_vehicle_repair.sqf";
+			
+			};			
+					
 Profit
