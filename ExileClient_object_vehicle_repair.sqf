@@ -57,9 +57,16 @@ else
 					player playMove "AinvPknlMstpSnonWnonDr_medic3";	
 					player playMove "AinvPknlMstpSnonWnonDr_medic3";	
 					sleep 20;
+					if (_vehicle isKindOf "car") then
+					{	
+						{
+							_vehicle setHitPointDamage [_x,0];
+						}	forEach _repairable;
+					}
+					else
 					{
-						_vehicle setHitPointDamage [_x,0];
-					}	forEach _repairable;
+						_vehicle setDamage 0;
+					};	
 					player removeItem "Exile_Item_DuctTape";
 					player removeItem "Exile_Item_JunkMetal";
 					["Success",["Vehicle repaired"]] call ExileClient_gui_notification_event_addNotification;
