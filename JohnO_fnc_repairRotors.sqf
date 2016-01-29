@@ -72,7 +72,7 @@ else
 						player playMove "AinvPknlMstpSnonWnonDr_medic3";		
 						sleep 10;
 						_vehicle setHitPointDamage [_rotorToRepair,0];
-						player removeItem "Exile_Item_Screws";
+						player removeItem "Exile_Item_MetalScrews";
 						player removeItem "Exile_Item_MetalPole";
 						player removeItem "Exile_Item_MetalWire";
 						["Success",["You have repaired a rotor"]] call ExileClient_gui_notification_event_addNotification;
