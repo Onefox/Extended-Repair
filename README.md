@@ -31,6 +31,7 @@ Place the two files inside your mission file.
 Inside your initPlayerLocal.sqf add this to the bottom -
 
 JohnO_fnc_repairWheels = compileFinal preprocessFileLineNumbers "JohnO_fnc_repairWheels.sqf";
+JohnO_fnc_repairRotors = compileFinal preprocessFileLineNumbers "JohnO_fnc_repairRotors.sqf";
 
 Inside your mission config.cpp find -
 
@@ -63,6 +64,21 @@ Inside your mission config.cpp find -
 				title = "Repair Wheels";
 				condition = "call ExileClient_object_vehicle_interaction_show";
 				action = "_this call JohnO_fnc_repairWheels";
+			};
+			
+			Do the same for class air and use these below.
+			
+			class Repair: ExileAbstractAction
+			{
+				title = "Repair Body";
+				condition = "call ExileClient_object_vehicle_interaction_show";
+				action = "_this call ExileClient_object_vehicle_Repair";
+			};
+			class RepairRotors: ExileAbstractAction
+			{
+				title = "Repair Rotors";
+				condition = "call ExileClient_object_vehicle_interaction_show";
+				action = "_this call JohnO_fnc_repairRotors";
 			};
 			
 			Optional -- Change the title of "Repair" to "Repair body" as you can see in the above example.

@@ -33,6 +33,11 @@ if (_vehicle isKindOf "car") then
 	_wheels = ["HitLF2Wheel","HitLFWheel","HitRFWheel","HitRF2Wheel"];
 	_repairable = _availableHitpoints - _wheels;
 };
+if (_vehicle isKindOf "air") then
+{	
+	_rotors = ["HitHrotor","HitVRotor"];
+	_repairable = _availableHitpoints - _rotors;
+};
 
 if (isNil "_fixable") exitWith 
 {
@@ -57,12 +62,12 @@ else
 					player playMove "AinvPknlMstpSnonWnonDr_medic3";	
 					player playMove "AinvPknlMstpSnonWnonDr_medic3";	
 					sleep 20;
-					if (_vehicle isKindOf "car") then
+					if ((_vehicle isKindOf "car") || (_vehicle isKindOf "air")) then
 					{	
 						{
 							_vehicle setHitPointDamage [_x,0];
 						}	forEach _repairable;
-					}
+					}						
 					else
 					{
 						_vehicle setDamage 0;
@@ -106,3 +111,11 @@ if (_vehicle isKindOf "car") then
 {
 bob setHitPointDamage 0;
 }	forEach _repairable;
+
+
+					if (_vehicle isKindOf "air") then
+					{	
+						{
+							_vehicle setHitPointDamage [_x,0];
+						}	forEach _repairable;
+					}
