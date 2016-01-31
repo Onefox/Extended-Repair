@@ -41,7 +41,7 @@ if (_broken isEqualTo []) exitWith
 if (!local _vehicle) then
 {
 	["RepairFailedWarning", ["Please get in as driver/pilot first."]] call ExileClient_gui_notification_event_addNotification;
-};
+}
 else 
 {
 	_equippedMagazines = magazines player;
