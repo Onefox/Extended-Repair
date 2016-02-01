@@ -20,13 +20,7 @@ if (vehicle player isEqualTo _vehicle) exitWith
 	["RepairFailedWarning", ["Are you serious?"]] call ExileClient_gui_notification_event_addNotification;
 };
 _availableHitpoints = (getAllHitPointsDamage _vehicle) select 0;
-{
-	if((_vehicle getHitPointDamage _x) > 0)exitWith
-	{
-		_fixable = "potato";
-	};
-}
-forEach _availableHitpoints;
+
 _repairable = [];
 if (_vehicle isKindOf "car") then
 {	
@@ -38,6 +32,14 @@ if (_vehicle isKindOf "air") then
 	_rotors = ["HitHrotor","HitVRotor"];
 	_repairable = _availableHitpoints - _rotors;
 };
+
+{
+	if((_vehicle getHitPointDamage _x) > 0)exitWith
+	{
+		_fixable = "potato";
+	};
+}
+forEach _repairable;
 
 if (isNil "_fixable") exitWith 
 {
@@ -95,27 +97,7 @@ else
 	{
 		["RepairFailedWarning", ["You need a toolbox"]] call ExileClient_gui_notification_event_addNotification;
 	};
+
 	
 };
 true
-
-/*
-_availableHitpoints = (getAllHitPointsDamage bob) select 0;
-
-_repairable = [];
-if (_vehicle isKindOf "car") then
-{	
-	_wheels = ["HitLF2Wheel","HitLFWheel","HitRFWheel","HitRF2Wheel"];
-	_repairable = _availableHitpoints - _wheels;
-};
-{
-bob setHitPointDamage 0;
-}	forEach _repairable;
-
-
-					if (_vehicle isKindOf "air") then
-					{	
-						{
-							_vehicle setHitPointDamage [_x,0];
-						}	forEach _repairable;
-					}
