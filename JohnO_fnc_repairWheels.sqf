@@ -46,34 +46,28 @@ if (!local _vehicle) then
 else 
 {
 	_equippedMagazines = magazines player;
-	
-	if ("Exile_Item_Foolbox" in _equippedMagazines) then
-	{	
-		if ("Exile_Item_Wrench" in _equippedMagazines) then
-		{
-			
-			if ("Exile_Item_CarWheel" in _equippedMagazines) then
-			{				
-				player playMove "AinvPknlMstpSnonWnonDr_medic3";		
-				sleep 10;
-				_vehicle setHitPointDamage [_wheelToRepair,0];
-				player removeItem "Exile_Item_CarWheel";
-				["Success",["You have repaired a wheel"]] call ExileClient_gui_notification_event_addNotification;
-			}
-			else
-			{
-				["RepairFailedWarning", ["You need a wheel"]] call ExileClient_gui_notification_event_addNotification;
-			};	
-				
-		}
-		else
-		{
-			["RepairFailedWarning", ["You need a wrench"]] call ExileClient_gui_notification_event_addNotification;
-		};	
-	}
-	else
+	if (!("Exile_Item_Foolbox" in _equippedMagazines)) then
 	{
 		["RepairFailedWarning", ["You need a toolbox"]] call ExileClient_gui_notification_event_addNotification;
+		sleep 0.5;
+	};
+	if (!("Exile_Item_Wrench" in _equippedMagazines)) then
+	{
+		["RepairFailedWarning", ["You need a wrench"]] call ExileClient_gui_notification_event_addNotification;
+		sleep 0.5;
+	};
+	if (!("Exile_Item_CarWheel" in _equippedMagazines)) then
+	{
+		["RepairFailedWarning", ["You need a wheel"]] call ExileClient_gui_notification_event_addNotification;
+		sleep 0.5;
+	};
+	if (("Exile_Item_Foolbox" in _equippedMagazines) && ("Exile_Item_Wrench" in _equippedMagazines) &&
+			("Exile_Item_CarWheel" in _equippedMagazines)) then {
+			player playMove "AinvPknlMstpSnonWnonDr_medic3";
+			sleep 10;
+			_vehicle setHitPointDamage [_wheelToRepair,0];
+			player removeItem "Exile_Item_CarWheel";
+			["Success",["You have repaired a wheel"]] call ExileClient_gui_notification_event_addNotification;
 	};
 	
 };

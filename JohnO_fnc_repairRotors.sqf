@@ -45,51 +45,43 @@ if (!local _vehicle) then
 else 
 {
 	_equippedMagazines = magazines player;
-	
-	if ("Exile_Item_Foolbox" in _equippedMagazines) then
-	{	
-		if ("Exile_Item_Wrench" in _equippedMagazines) then
-		{
-			
-			if ("Exile_Item_MetalScrews" in _equippedMagazines) then
-			{	
-				if ("Exile_Item_MetalPole" in _equippedMagazines) then
-				{			
-					if ("Exile_Item_MetalWire" in _equippedMagazines) then
-					{	
-						player playMove "AinvPknlMstpSnonWnonDr_medic3";		
-						sleep 10;
-						_vehicle setHitPointDamage [_rotorToRepair,0];
-						player removeItem "Exile_Item_MetalScrews";
-						player removeItem "Exile_Item_MetalPole";
-						player removeItem "Exile_Item_MetalWire";
-						["Success",["You have repaired a rotor"]] call ExileClient_gui_notification_event_addNotification;
-					}	
-					else
-					{
-						["RepairFailedWarning", ["You need some metal wire"]] call ExileClient_gui_notification_event_addNotification;
-					};	
-				}
-				else
-				{
-					["RepairFailedWarning", ["You need a metal pole"]] call ExileClient_gui_notification_event_addNotification;
-				};		
-			}
-			else
-			{
-				["RepairFailedWarning", ["You need metal screws"]] call ExileClient_gui_notification_event_addNotification;
-			};	
-				
-		}
-		else
-		{
-			["RepairFailedWarning", ["You need a wrench"]] call ExileClient_gui_notification_event_addNotification;
-		};	
-	}
-	else
+
+	if (!("Exile_Item_Foolbox" in _equippedMagazines)) then
 	{
 		["RepairFailedWarning", ["You need a toolbox"]] call ExileClient_gui_notification_event_addNotification;
+		sleep 0.5;
+		};
+	if (!("Exile_Item_Wrench" in _equippedMagazines)) then
+	{
+		["RepairFailedWarning", ["You need a wrench"]] call ExileClient_gui_notification_event_addNotification;
+		sleep 0.5;
 	};
-	
+	if (!("Exile_Item_MetalScrews" in _equippedMagazines)) then
+	{
+		["RepairFailedWarning", ["You need metal screws"]] call ExileClient_gui_notification_event_addNotification;
+		sleep 0.5;
+	};
+	if (!("Exile_Item_MetalPole" in _equippedMagazines)) then
+	{
+		["RepairFailedWarning", ["You need a metal pole"]] call ExileClient_gui_notification_event_addNotification;
+		sleep 0.5;
+	};
+	if (!("Exile_Item_MetalWire" in _equippedMagazines)) then
+	{
+		["RepairFailedWarning", ["You need some metal wire"]] call ExileClient_gui_notification_event_addNotification;
+		sleep 0.5;
+	};
+
+	if (("Exile_Item_Foolbox" in _equippedMagazines) && ("Exile_Item_Wrench" in _equippedMagazines) &&
+		("Exile_Item_MetalScrews" in _equippedMagazines) && ("Exile_Item_MetalPole" in _equippedMagazines) &&
+		("Exile_Item_MetalWire" in _equippedMagazines)) then {
+			player playMove "AinvPknlMstpSnonWnonDr_medic3";
+			sleep 10;
+			_vehicle setHitPointDamage [_rotorToRepair,0];
+			player removeItem "Exile_Item_MetalScrews";
+			player removeItem "Exile_Item_MetalPole";
+			player removeItem "Exile_Item_MetalWire";
+			["Success",["You have repaired a rotor"]] call ExileClient_gui_notification_event_addNotification;
+	};
 };
 true

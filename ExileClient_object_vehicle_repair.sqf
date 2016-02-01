@@ -52,50 +52,44 @@ if (!local _vehicle) then
 else 
 {
 	_equippedMagazines = magazines player;
-	if ("Exile_Item_Foolbox" in _equippedMagazines) then
-	{	
-		if ("Exile_Item_Wrench" in _equippedMagazines) then
+	if (!("Exile_Item_Foolbox" in _equippedMagazines)) then
+	{
+		["RepairFailedWarning", ["You need a toolbox"]] call ExileClient_gui_notification_event_addNotification;
+		sleep 0.5;
+	};
+	if (!("Exile_Item_Wrench" in _equippedMagazines)) then
+	{
+		["RepairFailedWarning", ["You need a wrench"]] call ExileClient_gui_notification_event_addNotification;
+		sleep 0.5;
+	};
+	if (!("Exile_Item_DuctTape" in _equippedMagazines)) then
+	{
+		["RepairFailedWarning", ["You need duct tape to do that"]] call ExileClient_gui_notification_event_addNotification;
+		sleep 0.5;
+	};
+	if (!("Exile_Item_JunkMetal" in _equippedMagazines)) then
+	{
+		["Whoops",["You need Junkmetal to do that"]] call ExileClient_gui_notification_event_addNotification;
+		sleep 0.5;
+	};
+	if (("Exile_Item_Foolbox" in _equippedMagazines) && ("Exile_Item_Wrench" in _equippedMagazines) &&
+		("Exile_Item_DuctTape" in _equippedMagazines) && ("Exile_Item_JunkMetal" in _equippedMagazines)) then {
+		player playMove "AinvPknlMstpSnonWnonDr_medic3";
+		player playMove "AinvPknlMstpSnonWnonDr_medic3";
+		sleep 20;
+		if ((_vehicle isKindOf "car") || (_vehicle isKindOf "air")) then
 		{
-			if ("Exile_Item_DuctTape" in _equippedMagazines) then
 			{
-				if ("Exile_Item_JunkMetal" in _equippedMagazines) then
-				{
-				
-					player playMove "AinvPknlMstpSnonWnonDr_medic3";	
-					player playMove "AinvPknlMstpSnonWnonDr_medic3";	
-					sleep 20;
-					if ((_vehicle isKindOf "car") || (_vehicle isKindOf "air")) then
-					{	
-						{
-							_vehicle setHitPointDamage [_x,0];
-						}	forEach _repairable;
-					}						
-					else
-					{
-						_vehicle setDamage 0;
-					};	
-					player removeItem "Exile_Item_DuctTape";
-					player removeItem "Exile_Item_JunkMetal";
-					["Success",["Vehicle repaired"]] call ExileClient_gui_notification_event_addNotification;
-				}
-				else
-				{
-					["Whoops",["You need Junkmetal to do that"]] call ExileClient_gui_notification_event_addNotification;
-				};
-			}
-			else 
-			{
-				["RepairFailedWarning", ["You need duct tape to do that"]] call ExileClient_gui_notification_event_addNotification;
-			};
+				_vehicle setHitPointDamage [_x,0];
+			}	forEach _repairable;
 		}
 		else
 		{
-			["RepairFailedWarning", ["You need a wrench"]] call ExileClient_gui_notification_event_addNotification;
-		};	
-	}
-	else
-	{
-		["RepairFailedWarning", ["You need a toolbox"]] call ExileClient_gui_notification_event_addNotification;
+			_vehicle setDamage 0;
+		};
+		player removeItem "Exile_Item_DuctTape";
+		player removeItem "Exile_Item_JunkMetal";
+		["Success",["Vehicle repaired"]] call ExileClient_gui_notification_event_addNotification;
 	};
 
 	
